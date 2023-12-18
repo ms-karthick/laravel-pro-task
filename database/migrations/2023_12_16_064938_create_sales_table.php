@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('customer_phone');
             $table->string('customer_state');
             $table->integer('product_id');
+            $table->integer('category_id');
             $table->integer('quantity');
             $table->integer('total_cost');
             $table->integer('gst_percentage');

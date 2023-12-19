@@ -91,18 +91,27 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-    //    dd($request);
+        
         try {
-            // dd($request);
-            $cat_id = Product::find($request->product_id);
-          $request->merge([
-            'category_id' => $cat_id->category_id,
-            'invoice_date' => date('Y-m-d', strtotime($request->invoice_date))
-          ]);
+            
+            foreach($request->dynForm as $key => $val){
+                // dd($val->id);
+                // dd($request);
+                $cat_id = Product::find($val['product_id']);
+                $request->merge([
+                  'category_id' => $cat_id->category_id,
+                  'invoice_date' => date('Y-m-d', strtotime($request->invoice_date)),
+                  'product_id'   => $val['product_id'],
+                  'rate'         => $val['rate'],
+                  'quantity'     => $val['quantity'],
+                  'gst_percentage'=> $val['gst_percentage'],
+                  'total_cost'      =>$val['total_cost']
+                ]);
 
-        //   dd($request->all());
-        $sales  = Sales::create($request->all());
-        return redirect('sales')->with(['success' => 'Sales Created Successfully!']);
+                // dd($request->all());
+                $sales  = Sales::create($request->all());
+            }
+        
         }
         catch (\Exception $exception) {
             return $exception->getMessage();

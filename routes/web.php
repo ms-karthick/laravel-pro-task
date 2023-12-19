@@ -19,4 +19,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::resource('sales', SalesController::class);
+// Route::post('sales', [SalesController::class, 'index'])->name('sales.index');
+// Route::post('sales/store', [SalesController::class, 'store'])->name('sales.store');
 Route::get('/sales-common', [ SalesController::class, 'common' ])->name('sales-common');
